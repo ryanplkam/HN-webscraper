@@ -14,6 +14,8 @@ class WebScraper
     scraped_data << self.scrape_url
     scraped_data << self.scrape_comments(doc)
 
+    raise FailedScrape if scraped_data.empty?
+
     scraped_data
 
   end

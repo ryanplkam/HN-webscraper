@@ -1,8 +1,13 @@
+require './errors.rb'
+
 class Post
 
   attr_reader :title, :url, :points, :item_id, :comments
 
   def initialize(title, url, points, item_id)
+    
+    raise InvalidPostOrComment if (title == nil || url == nil || points == nil || item_id == nil)
+
     @title = title
     @url = url
     @points = points

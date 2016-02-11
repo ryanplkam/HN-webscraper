@@ -15,19 +15,25 @@ class UI
 
   def create_post(scraped_data)    
     
-    # Convert scraped data from scraper into instance variables
-    title = scraped_data[0]
-    points = scraped_data[1]
-    id = scraped_data[2]
-    url = scraped_data[3]
-    comments = scraped_data[4]
+    begin
+      # Convert scraped data from scraper into instance variables
+      title = scraped_data[0]
+      points = scraped_data[1]
+      id = scraped_data[2]
+      url = scraped_data[3]
+      comments = scraped_data[4]
 
-    # Create a new post without any comments
-    @post = Post.new(title, url, points, id)
+      # Create a new post without any comments
+      @post = Post.new(title, url, points, id)
 
-    # Add comments to each post
-    comments.each do |comment|
-      @post.add_comment(Comment.new(comment))
+      # Add comments to each post
+      comments.each do |comment|
+        @post.add_comment(Comment.new(comment))
+      end
+    rescue InvalidPostOrComment
+      puts "Invalid arguments passed to the Post or Comment intialize!"
+    rescue FailedScrape
+      puts "Scrape failed!"
     end
 
   end
